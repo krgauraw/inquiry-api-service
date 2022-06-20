@@ -18,10 +18,8 @@ node('build-slave') {
 
                 cleanWs()
                 if(params.core_release_tag != "") {
-                    dir('core_repo') {
-                        checkout([$class: 'GitSCM', branches: [[name: params.core_release_tag]], extensions: [], userRemoteConfigs: [[url: params.core_repo_link]]])
-                        core_repo_commit_hash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-                    }
+                 checkout([$class: 'GitSCM', branches: [[name: params.core_release_tag]], extensions: [], userRemoteConfigs: [[url: params.core_repo_link]]])
+                 core_repo_commit_hash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
                  }
                 checkout scm
                 commit_hash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
@@ -32,7 +30,10 @@ node('build-slave') {
                 stage('Build') {
                     env.NODE_ENV = "build"
                     print "Environment will be : ${env.NODE_ENV}"
-                    sh 'mvn clean install -DskipTests=true '
+                    dir('knowledge-platform') {
+                        sh 'mvn clean install -DskipTests=true'
+                    }
+                    sh 'mvn clean install -DskipTests=true'
                 }
 
                 stage('Package') {
