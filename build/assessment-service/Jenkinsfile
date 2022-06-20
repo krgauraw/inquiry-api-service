@@ -19,7 +19,7 @@ node('build-slave') {
                 cleanWs()
                 if(params.core_release_tag != "") {
                     dir('core_repo') {
-                        checkout([$class: 'GitSCM', branches: [[name: ${params.core_release_tag}]], extensions: [], userRemoteConfigs: [[url: ${params.core_repo_link}]]])
+                        checkout([$class: 'GitSCM', branches: [[name: params.core_release_tag]], extensions: [], userRemoteConfigs: [[url: params.core_repo_link]]])
                         core_repo_commit_hash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
                     }
                  }
