@@ -18,16 +18,24 @@ node('build-slave') {
 
                 cleanWs()
                 if(params.core_release_tag != "") {
-                 dir('knowledge-platform') {
+                 dir('knowlg-core') {
                      stage('Checkout Core Components') {
                         checkout([$class: 'GitSCM', branches: [[name: params.core_release_tag]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CloneOption', depth: 0, noTags: false, reference: '', shallow: true]], submoduleCfg: [], userRemoteConfigs: [[url: params.core_repo_link]]])
                         core_repo_commit_hash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
                      }
 
-                     stage('Build Core Components'){
+                     stage('Build Core Components') {
                         env.NODE_ENV = "build"
                         print "Environment will be : ${env.NODE_ENV}"
-                        sh 'mvn clean install -DskipTests=true'
+                        dir('platform-core') {
+                            sh 'mvn clean install -DskipTests=true'
+                        }
+                        dir('ontology-engine') {
+                            sh 'mvn clean install -DskipTests=true'
+                        }
+                        dir('platform-modules/import-manager') {
+                            sh 'mvn clean install -DskipTests=true'
+                        }
                      }
                  }
                 }
