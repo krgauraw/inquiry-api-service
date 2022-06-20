@@ -18,8 +18,10 @@ node('build-slave') {
 
                 cleanWs()
                 if(params.core_release_tag != "") {
+                 dir('knowledge-platform') {
                  checkout([$class: 'GitSCM', branches: [[name: params.core_release_tag]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'CloneOption', depth: 0, noTags: false, reference: '', shallow: true]], submoduleCfg: [], userRemoteConfigs: [[url: params.core_repo_link]]])
                  core_repo_commit_hash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                 }
                 }
                 checkout scm
                 commit_hash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
