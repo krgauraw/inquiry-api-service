@@ -46,20 +46,26 @@ object HierarchyManager {
     @throws[Exception]
     def addLeafNodesToHierarchy(request:Request)(implicit oec: OntologyEngineContext, ec: ExecutionContext): Future[Response] = {
         validateRequest(request, "add")
+        println("DE:: request :: "+request.getRequest)
         val rootNodeFuture = getRootNode(request)
         rootNodeFuture.map(rootNode => {
+            println("DE:: rootNode identifier :: "+rootNode.getIdentifier)
             val unitId = request.getRequest.getOrDefault("collectionId", "").asInstanceOf[String]
+            println("DE:: unitId :: "+unitId)
             if (StringUtils.isBlank(unitId)) attachLeafToRootNode(request, rootNode, "add") else {
                 val rootNodeMap =  NodeUtil.serialize(rootNode, java.util.Arrays.asList("childNodes", "originData"), schemaName, schemaVersion)
+                println("DE:: rootNodeMap :: "+rootNodeMap)
                 val childNodes: List[String] = rootNodeMap.get("childNodes") match {
                     case x: Array[String] => x.asInstanceOf[Array[String]].toList
                     case y: util.List[String] => y.asInstanceOf[util.List[String]].toList
                 }
+                println("DE:: childNodes :: "+childNodes)
                 if(!childNodes.contains(unitId)) {
                     Future{ResponseHandler.ERROR(ResponseCode.RESOURCE_NOT_FOUND, ResponseCode.RESOURCE_NOT_FOUND.name(), "collectionId " + unitId + " does not exist")}
                 }else {
                     val hierarchyFuture = fetchHierarchy(request, rootNode.getIdentifier)
                     hierarchyFuture.map(hierarchy => {
+                        println("DE:: hierarchy :: "+hierarchy)
                         if(hierarchy.isEmpty){
                             Future{ResponseHandler.ERROR(ResponseCode.SERVER_ERROR, ResponseCode.SERVER_ERROR.name(), "hierarchy is empty")}
                         } else {
@@ -399,16 +405,24 @@ object HierarchyManager {
     }
 
     def updateHierarchyData(unitId: String, hierarchy: java.util.Map[String, AnyRef], leafNodes: List[Node], rootNode: Node, request: Request, operation: String)(implicit oec: OntologyEngineContext, ec: ExecutionContext): Future[Node] = {
+        println("DE:: updateHierarchyData() ::  unitId :: "+unitId)
+        val debugIds = leafNodes.map(node => node.getIdentifier)
+        println("DE:: updateHierarchyData() ::  leafNodes :: "+debugIds)
         val children =  hierarchy.get("children").asInstanceOf[java.util.List[java.util.Map[String, AnyRef]]]
+        println("DE:: updateHierarchyData() ::  children :: "+children)
         val leafNodeIds = request.get("children").asInstanceOf[java.util.List[String]]
+        println("DE:: updateHierarchyData() ::  request leafNodeIds :: "+leafNodeIds)
         val childNodes = new java.util.ArrayList[String]()
         val nodeChildNodes: List[String] = rootNode.getMetadata.getOrDefault("childNodes", Array[String]()) match {
             case x: Array[String] => x.asInstanceOf[Array[String]].toList
             case y: util.List[String] => y.asInstanceOf[util.List[String]].toList
         }
+        println("DE:: updateHierarchyData() ::  nodeChildNodes :: "+nodeChildNodes)
         childNodes.addAll(nodeChildNodes)
+        println("DE:: updateHierarchyData() ::  final childNodes :: "+childNodes)
         if("add".equalsIgnoreCase(operation)){
             val leafNodesMap:java.util.List[java.util.Map[String, AnyRef]] = convertNodeToMap(leafNodes)
+            println("DE:: updateHierarchyData() ::  leafNodesMap :: "+leafNodesMap)
             addChildrenToUnit(children, unitId, leafNodesMap, leafNodeIds, request)
             childNodes.addAll(leafNodeIds)
         }
@@ -420,6 +434,8 @@ object HierarchyManager {
         val updatedHierarchy = new java.util.HashMap[String, AnyRef]()
         updatedHierarchy.put(HierarchyConstants.IDENTIFIER, rootId)
         updatedHierarchy.put(HierarchyConstants.CHILDREN, children)
+        println("DE:: updateHierarchyData() ::  updatedHierarchy before sending final req for updating hierarchy:: "+updatedHierarchy)
+        println("DE:: updateHierarchyData() ::  final childNodes before updating hierarchy :: "+childNodes)
         val req = new Request()
         req.setContext(request.getContext)
         req.getContext.put(HierarchyConstants.IDENTIFIER, rootNode.getIdentifier)
