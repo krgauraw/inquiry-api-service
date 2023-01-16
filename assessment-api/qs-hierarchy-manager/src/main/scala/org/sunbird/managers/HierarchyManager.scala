@@ -46,6 +46,7 @@ object HierarchyManager {
     @throws[Exception]
     def addLeafNodesToHierarchy(request:Request)(implicit oec: OntologyEngineContext, ec: ExecutionContext): Future[Response] = {
         validateRequest(request, "add")
+        request.getRequest.put("mode", "edit")
         println("DE:: request :: "+request.getRequest)
         val rootNodeFuture = getRootNode(request)
         rootNodeFuture.map(rootNode => {
