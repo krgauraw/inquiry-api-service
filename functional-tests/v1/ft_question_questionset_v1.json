@@ -2019,8 +2019,8 @@
 													"        raw: JSON.stringify({",
 													"            \"request\": {",
 													"                \"question\": {",
-													"                    \"name\": \"FT_Q_PRE_UPDATE_MCQ_1\",",
-													"                    \"code\": \"ft.update.pre.question.1\",",
+													"                    \"name\": \"FT_Q_PRE_REVIEW_MCQ_1\",",
+													"                    \"code\": \"ft.review.pre.question.1\",",
 													"                    \"mimeType\": \"application/vnd.sunbird.question\",",
 													"                    \"primaryCategory\": \"Multiple Choice Question\",",
 													"                    \"responseDeclaration\": {",
@@ -2326,7 +2326,668 @@
 						},
 						{
 							"name": "question_review_400",
-							"item": []
+							"item": [
+								{
+									"name": "body is missing",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({",
+													"    url: pm.environment.get(\"host\") + '/question/' + pm.environment.get(\"api_version\") + '/create',",
+													"    method: 'POST',",
+													"    header: {",
+													"        'Content-Type': \"application/json\",",
+													"        'accept': \"application/json\",",
+													"        'Authorization': 'Bearer ' + pm.environment.get(\"api_key\")",
+													"    },",
+													"    body: {",
+													"        mode: 'raw',",
+													"        raw: JSON.stringify({",
+													"            \"request\": {",
+													"                \"question\": {",
+													"                    \"name\": \"FT_Q_PRE_REVIEW_MCQ_1\",",
+													"                    \"code\": \"ft.review.pre.question.1\",",
+													"                    \"mimeType\": \"application/vnd.sunbird.question\",",
+													"                    \"primaryCategory\": \"Multiple Choice Question\",",
+													"                    \"interactionTypes\": [\"choice\"],",
+													"                    \"responseDeclaration\": {",
+													"                        \"response1\": {",
+													"                            \"maxScore\": 1,",
+													"                            \"cardinality\": \"single\",",
+													"                            \"type\": \"integer\",",
+													"                            \"correctResponse\": {",
+													"                                \"value\": \"3\",",
+													"                                \"outcomes\": {",
+													"                                    \"SCORE\": 1",
+													"                                }",
+													"                            },",
+													"                            \"mapping\": [{",
+													"                                \"response\": 3,",
+													"                                \"outcomes\": {",
+													"                                    \"score\": 1",
+													"                                }",
+													"                            }]",
+													"                        }",
+													"                    },",
+													"                    \"media\": [{",
+													"                        \"id\": \"do_2137498365362995201237\",",
+													"                        \"type\": \"image\",",
+													"                        \"src\": \"/assets/public/content/assets/do_2137498365362995201237/tea.jpeg\",",
+													"                        \"baseUrl\": \"https://dev.inquiry.sunbird.org\"",
+													"                    }],",
+													"                    \"editorState\": {",
+													"                        \"options\": [{",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Wheat</p>\",",
+													"                                    \"value\": 0",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Barley</p>\",",
+													"                                    \"value\": 1",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Maize</p>\",",
+													"                                    \"value\": 2",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": true,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Tea</p>\",",
+													"                                    \"value\": 3",
+													"                                }",
+													"                            }",
+													"                        ],",
+													"                        \"question\": \"<p><span style=\\\"background-color:#ffffff;color:#202124;\\\">Which of the following crops is a commercial crop?</span></p>\",",
+													"                        \"solutions\": [{",
+													"                            \"id\": \"f8e65cff-1451-4353-b281-3ceaf874b5b8\",",
+													"                            \"type\": \"html\",",
+													"                            \"value\": \"<p>Tea is the <span style=\\\"background-color:#ffffff;color:#202124;\\\">commercial crop</span></p><figure class=\\\"image image-style-align-left\\\"><img src=\\\"/assets/public/content/assets/do_2137498365362995201237/tea.jpeg\\\" alt=\\\"tea\\\" data-asset-variable=\\\"do_2137498365362995201237\\\"></figure>\"",
+													"                        }]",
+													"                    },",
+													"                    \"interactions\": {",
+													"                        \"response1\": {",
+													"                            \"type\": \"choice\",",
+													"                            \"options\": [{",
+													"                                    \"label\": \"<p>Wheat</p>\",",
+													"                                    \"value\": 0",
+													"                                },",
+													"                                {",
+													"                                    \"label\": \"<p>Barley</p>\",",
+													"                                    \"value\": 1",
+													"                                },",
+													"                                {",
+													"                                    \"label\": \"<p>Maize</p>\",",
+													"                                    \"value\": 2",
+													"                                },",
+													"                                {",
+													"                                    \"label\": \"<p>Tea</p>\",",
+													"                                    \"value\": 3",
+													"                                }",
+													"                            ]",
+													"                        },",
+													"                        \"validation\": {",
+													"                            \"required\": \"Yes\"",
+													"                        }",
+													"                    }",
+													"                }",
+													"            }",
+													"        })",
+													"    }",
+													"}, (error, response) => {",
+													"    if (error) {",
+													"        console.log(\"error occured while creating question for update test. | error: \" + error)",
+													"    }",
+													"    if (response) {",
+													"        pm.collectionVariables.set(\"question_identifier_for_review\", response.json().result.identifier)",
+													"    }",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Response time is less than 1000ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+													"});",
+													"pm.test(\"Response Validation\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.id).to.eql(\"api.question.review\");",
+													"    pm.expect(jsonData.params.status).to.eql(\"failed\");",
+													"    pm.expect(jsonData.params.err).to.eql(\"ERR_QUESTION_REVIEW\");",
+													"    pm.expect(jsonData.params.errmsg).to.eql(\"There is no body available for : \"+pm.collectionVariables.get(\"question_identifier_for_review\"));",
+													"    pm.expect(jsonData.result.messages).to.be.null;",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Channel-Id",
+												"value": "{{channel_id}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{api_key}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"request\": {\n        \"questionset\":{\n            \n        }\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/question/{{api_version}}/review/{{question_identifier_for_review}}",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"question",
+												"{{api_version}}",
+												"review",
+												"{{question_identifier_for_review}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "responseDeclaration is missing",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({",
+													"    url: pm.environment.get(\"host\") + '/question/' + pm.environment.get(\"api_version\") + '/create',",
+													"    method: 'POST',",
+													"    header: {",
+													"        'Content-Type': \"application/json\",",
+													"        'accept': \"application/json\",",
+													"        'Authorization': 'Bearer ' + pm.environment.get(\"api_key\")",
+													"    },",
+													"    body: {",
+													"        mode: 'raw',",
+													"        raw: JSON.stringify({",
+													"            \"request\": {",
+													"                \"question\": {",
+													"                    \"name\": \"FT_Q_PRE_REVIEW_MCQ_1\",",
+													"                    \"code\": \"ft.review.pre.question.1\",",
+													"                    \"mimeType\": \"application/vnd.sunbird.question\",",
+													"                    \"primaryCategory\": \"Multiple Choice Question\",",
+													"                    \"interactionTypes\": [\"choice\"],",
+													"                    \"body\": \"<div class='question-body' tabindex='-1'><div class='mcq-title' tabindex='0'><p><span style=\\\"background-color:#ffffff;color:#202124;\\\">Which of the following crops is a commercial crop?</span></p></div><div data-choice-interaction='response1' class='mcq-vertical'></div></div>\",",
+													"                    \"media\": [{",
+													"                        \"id\": \"do_2137498365362995201237\",",
+													"                        \"type\": \"image\",",
+													"                        \"src\": \"/assets/public/content/assets/do_2137498365362995201237/tea.jpeg\",",
+													"                        \"baseUrl\": \"https://dev.inquiry.sunbird.org\"",
+													"                    }],",
+													"                    \"editorState\": {",
+													"                        \"options\": [{",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Wheat</p>\",",
+													"                                    \"value\": 0",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Barley</p>\",",
+													"                                    \"value\": 1",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Maize</p>\",",
+													"                                    \"value\": 2",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": true,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Tea</p>\",",
+													"                                    \"value\": 3",
+													"                                }",
+													"                            }",
+													"                        ],",
+													"                        \"question\": \"<p><span style=\\\"background-color:#ffffff;color:#202124;\\\">Which of the following crops is a commercial crop?</span></p>\",",
+													"                        \"solutions\": [{",
+													"                            \"id\": \"f8e65cff-1451-4353-b281-3ceaf874b5b8\",",
+													"                            \"type\": \"html\",",
+													"                            \"value\": \"<p>Tea is the <span style=\\\"background-color:#ffffff;color:#202124;\\\">commercial crop</span></p><figure class=\\\"image image-style-align-left\\\"><img src=\\\"/assets/public/content/assets/do_2137498365362995201237/tea.jpeg\\\" alt=\\\"tea\\\" data-asset-variable=\\\"do_2137498365362995201237\\\"></figure>\"",
+													"                        }]",
+													"                    },",
+													"                    \"interactions\": {",
+													"                        \"response1\": {",
+													"                            \"type\": \"choice\",",
+													"                            \"options\": [{",
+													"                                    \"label\": \"<p>Wheat</p>\",",
+													"                                    \"value\": 0",
+													"                                },",
+													"                                {",
+													"                                    \"label\": \"<p>Barley</p>\",",
+													"                                    \"value\": 1",
+													"                                },",
+													"                                {",
+													"                                    \"label\": \"<p>Maize</p>\",",
+													"                                    \"value\": 2",
+													"                                },",
+													"                                {",
+													"                                    \"label\": \"<p>Tea</p>\",",
+													"                                    \"value\": 3",
+													"                                }",
+													"                            ]",
+													"                        },",
+													"                        \"validation\": {",
+													"                            \"required\": \"Yes\"",
+													"                        }",
+													"                    }",
+													"                }",
+													"            }",
+													"        })",
+													"    }",
+													"}, (error, response) => {",
+													"    if (error) {",
+													"        console.log(\"error occured while creating question for update test. | error: \" + error)",
+													"    }",
+													"    if (response) {",
+													"        pm.collectionVariables.set(\"question_identifier_for_review\", response.json().result.identifier)",
+													"    }",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Response time is less than 1000ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+													"});",
+													"pm.test(\"Response Validation\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.id).to.eql(\"api.question.review\");",
+													"    pm.expect(jsonData.params.status).to.eql(\"failed\");",
+													"    pm.expect(jsonData.params.err).to.eql(\"ERR_QUESTION_REVIEW\");",
+													"    pm.expect(jsonData.params.errmsg).to.eql(\"There is no responseDeclaration available for : \"+pm.collectionVariables.get(\"question_identifier_for_review\"));",
+													"    pm.expect(jsonData.result.messages).to.be.null;",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Channel-Id",
+												"value": "{{channel_id}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{api_key}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"request\": {\n        \"questionset\":{\n            \n        }\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/question/{{api_version}}/review/{{question_identifier_for_review}}",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"question",
+												"{{api_version}}",
+												"review",
+												"{{question_identifier_for_review}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "interactions is missing",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({",
+													"    url: pm.environment.get(\"host\") + '/question/' + pm.environment.get(\"api_version\") + '/create',",
+													"    method: 'POST',",
+													"    header: {",
+													"        'Content-Type': \"application/json\",",
+													"        'accept': \"application/json\",",
+													"        'Authorization': 'Bearer ' + pm.environment.get(\"api_key\")",
+													"    },",
+													"    body: {",
+													"        mode: 'raw',",
+													"        raw: JSON.stringify({",
+													"            \"request\": {",
+													"                \"question\": {",
+													"                    \"name\": \"FT_Q_PRE_REVIEW_MCQ_1\",",
+													"                    \"code\": \"ft.review.pre.question.1\",",
+													"                    \"mimeType\": \"application/vnd.sunbird.question\",",
+													"                    \"primaryCategory\": \"Multiple Choice Question\",",
+													"                    \"interactionTypes\": [\"choice\"],",
+													"                    \"responseDeclaration\": {",
+													"                        \"response1\": {",
+													"                            \"maxScore\": 1,",
+													"                            \"cardinality\": \"single\",",
+													"                            \"type\": \"integer\",",
+													"                            \"correctResponse\": {",
+													"                                \"value\": \"3\",",
+													"                                \"outcomes\": {",
+													"                                    \"SCORE\": 1",
+													"                                }",
+													"                            },",
+													"                            \"mapping\": [{",
+													"                                \"response\": 3,",
+													"                                \"outcomes\": {",
+													"                                    \"score\": 1",
+													"                                }",
+													"                            }]",
+													"                        }",
+													"                    },",
+													"                    \"body\": \"<div class='question-body' tabindex='-1'><div class='mcq-title' tabindex='0'><p><span style=\\\"background-color:#ffffff;color:#202124;\\\">Which of the following crops is a commercial crop?</span></p></div><div data-choice-interaction='response1' class='mcq-vertical'></div></div>\",",
+													"                    \"media\": [{",
+													"                        \"id\": \"do_2137498365362995201237\",",
+													"                        \"type\": \"image\",",
+													"                        \"src\": \"/assets/public/content/assets/do_2137498365362995201237/tea.jpeg\",",
+													"                        \"baseUrl\": \"https://dev.inquiry.sunbird.org\"",
+													"                    }],",
+													"                    \"editorState\": {",
+													"                        \"options\": [{",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Wheat</p>\",",
+													"                                    \"value\": 0",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Barley</p>\",",
+													"                                    \"value\": 1",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Maize</p>\",",
+													"                                    \"value\": 2",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": true,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Tea</p>\",",
+													"                                    \"value\": 3",
+													"                                }",
+													"                            }",
+													"                        ],",
+													"                        \"question\": \"<p><span style=\\\"background-color:#ffffff;color:#202124;\\\">Which of the following crops is a commercial crop?</span></p>\",",
+													"                        \"solutions\": [{",
+													"                            \"id\": \"f8e65cff-1451-4353-b281-3ceaf874b5b8\",",
+													"                            \"type\": \"html\",",
+													"                            \"value\": \"<p>Tea is the <span style=\\\"background-color:#ffffff;color:#202124;\\\">commercial crop</span></p><figure class=\\\"image image-style-align-left\\\"><img src=\\\"/assets/public/content/assets/do_2137498365362995201237/tea.jpeg\\\" alt=\\\"tea\\\" data-asset-variable=\\\"do_2137498365362995201237\\\"></figure>\"",
+													"                        }]",
+													"                    }",
+													"                }",
+													"            }",
+													"        })",
+													"    }",
+													"}, (error, response) => {",
+													"    if (error) {",
+													"        console.log(\"error occured while creating question for update test. | error: \" + error)",
+													"    }",
+													"    if (response) {",
+													"        pm.collectionVariables.set(\"question_identifier_for_review\", response.json().result.identifier)",
+													"    }",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Response time is less than 1000ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+													"});",
+													"pm.test(\"Response Validation\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.id).to.eql(\"api.question.review\");",
+													"    pm.expect(jsonData.params.status).to.eql(\"failed\");",
+													"    pm.expect(jsonData.params.err).to.eql(\"ERR_QUESTION_REVIEW\");",
+													"    pm.expect(jsonData.params.errmsg).to.eql(\"There is no interactions available for : \"+pm.collectionVariables.get(\"question_identifier_for_review\"));",
+													"    pm.expect(jsonData.result.messages).to.be.null;",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Channel-Id",
+												"value": "{{channel_id}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{api_key}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"request\": {\n        \"questionset\":{\n            \n        }\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/question/{{api_version}}/review/{{question_identifier_for_review}}",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"question",
+												"{{api_version}}",
+												"review",
+												"{{question_identifier_for_review}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "answer is missing",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({",
+													"    url: pm.environment.get(\"host\") + '/question/' + pm.environment.get(\"api_version\") + '/create',",
+													"    method: 'POST',",
+													"    header: {",
+													"        'Content-Type': \"application/json\",",
+													"        'accept': \"application/json\",",
+													"        'Authorization': 'Bearer ' + pm.environment.get(\"api_key\")",
+													"    },",
+													"    body: {",
+													"        mode: 'raw',",
+													"        raw: JSON.stringify({",
+													"            \"request\": {",
+													"        \"question\": {",
+													"            \"name\": \"FT_Q_SUB_FOR_REVIEW\",",
+													"            \"code\": \"question.sub.review.2\",",
+													"            \"mimeType\": \"application/vnd.sunbird.question\",",
+													"            \"primaryCategory\": \"Subjective Question\",",
+													"            \"responseDeclaration\": {",
+													"                \"response1\": {",
+													"                    \"type\": \"string\"",
+													"                }",
+													"            },",
+													"            \"media\": [",
+													"                {",
+													"                    \"id\": \"do_2137498388008550401238\",",
+													"                    \"type\": \"image\",",
+													"                    \"src\": \"/assets/public/content/assets/do_2137498388008550401238/partition.jpg\",",
+													"                    \"baseUrl\": \"https://dev.inquiry.sunbird.org\"",
+													"                }",
+													"            ],",
+													"            \"body\": \"<p><span style=\\\"background-color:#ffffff;color:#202124;\\\">Mention the series of great challenges faced by India after independence.</span></p>\",",
+													"            \"editorState\": {",
+													"                \"answer\": \"<p><span style=\\\"background-color:#ffffff;color:#202124;\\\">The challenges faced by India after independence were Partition led to arrival of 8 million people to India from Pakistan for whom homes and jobs had to be found. 500 princely states, each of which was ruled by a maharaja or a nawab, had to be convinced to join the new nation. Also, in the long run, the new nation had to adopt a political system which would best serve the hopes and expectations of its population.</span></p>\",",
+													"                \"question\": \"<p><span style=\\\"background-color:#ffffff;color:#202124;\\\">Mention the series of great challenges faced by India after independence.</span></p>\",",
+													"                \"solutions\": [",
+													"                    {",
+													"                        \"id\": \"1010b711-211e-4dfd-a4d6-8749a2128c6f\",",
+													"                        \"type\": \"html\",",
+													"                        \"value\": \"<p><span style=\\\"background-color:#ffffff;color:#202124;\\\">The challenges faced by India after independence were Partition led to arrival of 8 million people to India from Pakistan for whom homes and jobs had to be found.</span></p><figure class=\\\"image resize-50 image-style-align-left\\\"><img src=\\\"/assets/public/content/assets/do_2137498388008550401238/partition.jpg\\\" alt=\\\"partition\\\" data-asset-variable=\\\"do_2137498388008550401238\\\"></figure>\"",
+													"                    }",
+													"                ]",
+													"            },",
+													"            \"interactions\": {",
+													"                \"validation\": {",
+													"                    \"required\": \"Yes\"",
+													"                }",
+													"            }",
+													"        }",
+													"    }",
+													"        })",
+													"    }",
+													"}, (error, response) => {",
+													"    if (error) {",
+													"        console.log(\"error occured while creating question for update test. | error: \" + error)",
+													"    }",
+													"    if (response) {",
+													"        pm.collectionVariables.set(\"question_identifier_for_review\", response.json().result.identifier)",
+													"    }",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Response time is less than 1000ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+													"});",
+													"pm.test(\"Response Validation\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.id).to.eql(\"api.question.review\");",
+													"    pm.expect(jsonData.params.status).to.eql(\"failed\");",
+													"    pm.expect(jsonData.params.err).to.eql(\"ERR_QUESTION_REVIEW\");",
+													"    pm.expect(jsonData.params.errmsg).to.eql(\"There is no answer available for : \"+pm.collectionVariables.get(\"question_identifier_for_review\"));",
+													"    pm.expect(jsonData.result.messages).to.be.null;",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Channel-Id",
+												"value": "{{channel_id}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{api_key}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"request\": {\n        \"questionset\":{\n            \n        }\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/question/{{api_version}}/review/{{question_identifier_for_review}}",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"question",
+												"{{api_version}}",
+												"review",
+												"{{question_identifier_for_review}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						},
 						{
 							"name": "question_review_404",
@@ -2433,10 +3094,266 @@
 							"name": "question_retire_200",
 							"item": [
 								{
-									"name": "New Request",
+									"name": "question_retire_for_question_in_draft_status",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({",
+													"    url: pm.environment.get(\"host\") + '/question/' + pm.environment.get(\"api_version\") + '/create',",
+													"    method: 'POST',",
+													"    header: {",
+													"        'Content-Type': \"application/json\",",
+													"        'accept': \"application/json\",",
+													"        'Authorization': 'Bearer ' + pm.environment.get(\"api_key\")",
+													"    },",
+													"    body: {",
+													"        mode: 'raw',",
+													"        raw: JSON.stringify({",
+													"            \"request\": {",
+													"                \"question\": {",
+													"                    \"name\": \"FT_Q_PRE_RETIRE_MCQ_1\",",
+													"                    \"code\": \"ft.retire.pre.question.1\",",
+													"                    \"mimeType\": \"application/vnd.sunbird.question\",",
+													"                    \"primaryCategory\": \"Multiple Choice Question\",",
+													"                    \"responseDeclaration\": {",
+													"                        \"response1\": {",
+													"                            \"maxScore\": 1,",
+													"                            \"cardinality\": \"single\",",
+													"                            \"type\": \"integer\",",
+													"                            \"correctResponse\": {",
+													"                                \"value\": \"3\",",
+													"                                \"outcomes\": {",
+													"                                    \"SCORE\": 1",
+													"                                }",
+													"                            },",
+													"                            \"mapping\": [{",
+													"                                \"response\": 3,",
+													"                                \"outcomes\": {",
+													"                                    \"score\": 1",
+													"                                }",
+													"                            }]",
+													"                        }",
+													"                    },",
+													"                    \"media\": [{",
+													"                        \"id\": \"do_2137498365362995201237\",",
+													"                        \"type\": \"image\",",
+													"                        \"src\": \"/assets/public/content/assets/do_2137498365362995201237/tea.jpeg\",",
+													"                        \"baseUrl\": \"https://dev.inquiry.sunbird.org\"",
+													"                    }],",
+													"                    \"body\": \"<div class='question-body' tabindex='-1'><div class='mcq-title' tabindex='0'><p><span style=\\\"background-color:#ffffff;color:#202124;\\\">Which of the following crops is a commercial crop?</span></p></div><div data-choice-interaction='response1' class='mcq-vertical'></div></div>\",",
+													"                    \"editorState\": {",
+													"                        \"options\": [{",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Wheat</p>\",",
+													"                                    \"value\": 0",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Barley</p>\",",
+													"                                    \"value\": 1",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Maize</p>\",",
+													"                                    \"value\": 2",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": true,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Tea</p>\",",
+													"                                    \"value\": 3",
+													"                                }",
+													"                            }",
+													"                        ],",
+													"                        \"question\": \"<p><span style=\\\"background-color:#ffffff;color:#202124;\\\">Which of the following crops is a commercial crop?</span></p>\",",
+													"                        \"solutions\": [{",
+													"                            \"id\": \"f8e65cff-1451-4353-b281-3ceaf874b5b8\",",
+													"                            \"type\": \"html\",",
+													"                            \"value\": \"<p>Tea is the <span style=\\\"background-color:#ffffff;color:#202124;\\\">commercial crop</span></p><figure class=\\\"image image-style-align-left\\\"><img src=\\\"/assets/public/content/assets/do_2137498365362995201237/tea.jpeg\\\" alt=\\\"tea\\\" data-asset-variable=\\\"do_2137498365362995201237\\\"></figure>\"",
+													"                        }]",
+													"                    },",
+													"                    \"interactions\": {",
+													"                        \"response1\": {",
+													"                            \"type\": \"choice\",",
+													"                            \"options\": [{",
+													"                                    \"label\": \"<p>Wheat</p>\",",
+													"                                    \"value\": 0",
+													"                                },",
+													"                                {",
+													"                                    \"label\": \"<p>Barley</p>\",",
+													"                                    \"value\": 1",
+													"                                },",
+													"                                {",
+													"                                    \"label\": \"<p>Maize</p>\",",
+													"                                    \"value\": 2",
+													"                                },",
+													"                                {",
+													"                                    \"label\": \"<p>Tea</p>\",",
+													"                                    \"value\": 3",
+													"                                }",
+													"                            ]",
+													"                        },",
+													"                        \"validation\": {",
+													"                            \"required\": \"Yes\"",
+													"                        }",
+													"                    }",
+													"                }",
+													"            }",
+													"        })",
+													"    }",
+													"}, (error, response) => {",
+													"    if (error) {",
+													"        console.log(\"error occured while creating question for retire test. | error: \" + error)",
+													"    }",
+													"    if (response) {",
+													"        pm.collectionVariables.set(\"question_identifier_for_retire\", response.json().result.identifier)",
+													"    }",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"pm.test(\"Response time is less than 1000ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+													"});",
+													"pm.test(\"Response Validation\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.id).to.eql(\"api.question.retire\");",
+													"    pm.expect(jsonData.params.status).to.eql(\"successful\");",
+													"    pm.expect(jsonData.params.errmsg).to.eql(null);",
+													"    pm.expect(jsonData.result.identifier).to.eql(pm.collectionVariables.get(\"question_identifier_for_retire\"))",
+													"    pm.expect(jsonData.result.versionKey).not.eq(null)",
+													"    postman.setNextRequest(\"read_and_validate_retired_question\")",
+													"});",
+													"",
+													"",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "X-Channel-Id",
+												"value": "{{channel_id}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{api_key}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"request\": {\n        \"question\": {\n            \n        }\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/question/{{api_version}}/retire/{{question_identifier_for_retire}}",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"question",
+												"{{api_version}}",
+												"retire",
+												"{{question_identifier_for_retire}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "read_and_validate_retired_question",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"pm.test(\"Response time is less than 1000ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+													"});",
+													"pm.test(\"Response Validation\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.id).to.eql(\"api.question.read\");",
+													"    pm.expect(jsonData.params.status).to.eql(\"successful\");",
+													"    pm.expect(jsonData.params.errmsg).to.eql(null);",
+													"    var questionData = jsonData.result.question;",
+													"    pm.expect(questionData.identifier).to.eql(pm.collectionVariables.get(\"question_identifier_for_retire\"))",
+													"    pm.expect(questionData.versionKey).not.eq(null)",
+													"    pm.expect(questionData.objectType).to.eql(\"Question\")",
+													"    pm.expect(questionData.status).to.eql(\"Retired\")",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"console.log(\"validating question for retire test having identifier : \"+pm.collectionVariables.get(\"question_identifier_for_retire\"))"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "GET",
-										"header": []
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{api_key}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{host}}/question/{{api_version}}/read/{{question_identifier_for_retire}}?mode=edit",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"question",
+												"{{api_version}}",
+												"read",
+												"{{question_identifier_for_retire}}"
+											],
+											"query": [
+												{
+													"key": "mode",
+													"value": "edit"
+												}
+											]
+										}
 									},
 									"response": []
 								}
@@ -2457,15 +3374,582 @@
 					"item": [
 						{
 							"name": "question_list_200",
-							"item": []
+							"item": [
+								{
+									"name": "list_questions_with_valid_identifiers",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({",
+													"    url: pm.environment.get(\"host\") + '/question/' + pm.environment.get(\"api_version\") + '/create',",
+													"    method: 'POST',",
+													"    header: {",
+													"        'Content-Type': \"application/json\",",
+													"        'accept': \"application/json\",",
+													"        'Authorization': 'Bearer ' + pm.environment.get(\"api_key\")",
+													"    },",
+													"    body: {",
+													"        mode: 'raw',",
+													"        raw: JSON.stringify({",
+													"            \"request\": {",
+													"                \"question\": {",
+													"                    \"name\": \"FT_Q_PRE_LIST_MCQ_1\",",
+													"                    \"code\": \"ft.list.pre.question.1\",",
+													"                    \"mimeType\": \"application/vnd.sunbird.question\",",
+													"                    \"primaryCategory\": \"Multiple Choice Question\",",
+													"                    \"responseDeclaration\": {",
+													"                        \"response1\": {",
+													"                            \"maxScore\": 1,",
+													"                            \"cardinality\": \"single\",",
+													"                            \"type\": \"integer\",",
+													"                            \"correctResponse\": {",
+													"                                \"value\": \"3\",",
+													"                                \"outcomes\": {",
+													"                                    \"SCORE\": 1",
+													"                                }",
+													"                            },",
+													"                            \"mapping\": [{",
+													"                                \"response\": 3,",
+													"                                \"outcomes\": {",
+													"                                    \"score\": 1",
+													"                                }",
+													"                            }]",
+													"                        }",
+													"                    },",
+													"                    \"media\": [{",
+													"                        \"id\": \"do_2137498365362995201237\",",
+													"                        \"type\": \"image\",",
+													"                        \"src\": \"/assets/public/content/assets/do_2137498365362995201237/tea.jpeg\",",
+													"                        \"baseUrl\": \"https://dev.inquiry.sunbird.org\"",
+													"                    }],",
+													"                    \"body\": \"<div class='question-body' tabindex='-1'><div class='mcq-title' tabindex='0'><p><span style=\\\"background-color:#ffffff;color:#202124;\\\">Which of the following crops is a commercial crop?</span></p></div><div data-choice-interaction='response1' class='mcq-vertical'></div></div>\",",
+													"                    \"editorState\": {",
+													"                        \"options\": [{",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Wheat</p>\",",
+													"                                    \"value\": 0",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Barley</p>\",",
+													"                                    \"value\": 1",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Maize</p>\",",
+													"                                    \"value\": 2",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": true,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Tea</p>\",",
+													"                                    \"value\": 3",
+													"                                }",
+													"                            }",
+													"                        ],",
+													"                        \"question\": \"<p><span style=\\\"background-color:#ffffff;color:#202124;\\\">Which of the following crops is a commercial crop?</span></p>\",",
+													"                        \"solutions\": [{",
+													"                            \"id\": \"f8e65cff-1451-4353-b281-3ceaf874b5b8\",",
+													"                            \"type\": \"html\",",
+													"                            \"value\": \"<p>Tea is the <span style=\\\"background-color:#ffffff;color:#202124;\\\">commercial crop</span></p><figure class=\\\"image image-style-align-left\\\"><img src=\\\"/assets/public/content/assets/do_2137498365362995201237/tea.jpeg\\\" alt=\\\"tea\\\" data-asset-variable=\\\"do_2137498365362995201237\\\"></figure>\"",
+													"                        }]",
+													"                    },",
+													"                    \"interactions\": {",
+													"                        \"response1\": {",
+													"                            \"type\": \"choice\",",
+													"                            \"options\": [{",
+													"                                    \"label\": \"<p>Wheat</p>\",",
+													"                                    \"value\": 0",
+													"                                },",
+													"                                {",
+													"                                    \"label\": \"<p>Barley</p>\",",
+													"                                    \"value\": 1",
+													"                                },",
+													"                                {",
+													"                                    \"label\": \"<p>Maize</p>\",",
+													"                                    \"value\": 2",
+													"                                },",
+													"                                {",
+													"                                    \"label\": \"<p>Tea</p>\",",
+													"                                    \"value\": 3",
+													"                                }",
+													"                            ]",
+													"                        },",
+													"                        \"validation\": {",
+													"                            \"required\": \"Yes\"",
+													"                        }",
+													"                    }",
+													"                }",
+													"            }",
+													"        })",
+													"    }",
+													"}, (error, response) => {",
+													"    if (error) {",
+													"        console.log(\"error occured while creating question for list api test. | error: \" + error)",
+													"    }",
+													"    if (response) {",
+													"        pm.collectionVariables.set(\"question_list_identifier_1\", response.json().result.identifier)",
+													"    }",
+													"});",
+													"pm.sendRequest({",
+													"    url: pm.environment.get(\"host\") + '/question/' + pm.environment.get(\"api_version\") + '/create',",
+													"    method: 'POST',",
+													"    header: {",
+													"        'Content-Type': \"application/json\",",
+													"        'accept': \"application/json\",",
+													"        'Authorization': 'Bearer ' + pm.environment.get(\"api_key\")",
+													"    },",
+													"    body: {",
+													"        mode: 'raw',",
+													"        raw: JSON.stringify({",
+													"            \"request\": {",
+													"                \"question\": {",
+													"                    \"name\": \"FT_Q_PRE_LIST_MCQ_2\",",
+													"                    \"code\": \"ft.list.pre.question.2\",",
+													"                    \"mimeType\": \"application/vnd.sunbird.question\",",
+													"                    \"primaryCategory\": \"Multiple Choice Question\",",
+													"                    \"responseDeclaration\": {",
+													"                        \"response1\": {",
+													"                            \"maxScore\": 1,",
+													"                            \"cardinality\": \"single\",",
+													"                            \"type\": \"integer\",",
+													"                            \"correctResponse\": {",
+													"                                \"value\": \"3\",",
+													"                                \"outcomes\": {",
+													"                                    \"SCORE\": 1",
+													"                                }",
+													"                            },",
+													"                            \"mapping\": [{",
+													"                                \"response\": 3,",
+													"                                \"outcomes\": {",
+													"                                    \"score\": 1",
+													"                                }",
+													"                            }]",
+													"                        }",
+													"                    },",
+													"                    \"media\": [{",
+													"                        \"id\": \"do_2137498365362995201237\",",
+													"                        \"type\": \"image\",",
+													"                        \"src\": \"/assets/public/content/assets/do_2137498365362995201237/tea.jpeg\",",
+													"                        \"baseUrl\": \"https://dev.inquiry.sunbird.org\"",
+													"                    }],",
+													"                    \"body\": \"<div class='question-body' tabindex='-1'><div class='mcq-title' tabindex='0'><p><span style=\\\"background-color:#ffffff;color:#202124;\\\">Which of the following crops is a commercial crop?</span></p></div><div data-choice-interaction='response1' class='mcq-vertical'></div></div>\",",
+													"                    \"editorState\": {",
+													"                        \"options\": [{",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Wheat</p>\",",
+													"                                    \"value\": 0",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Barley</p>\",",
+													"                                    \"value\": 1",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Maize</p>\",",
+													"                                    \"value\": 2",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": true,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Tea</p>\",",
+													"                                    \"value\": 3",
+													"                                }",
+													"                            }",
+													"                        ],",
+													"                        \"question\": \"<p><span style=\\\"background-color:#ffffff;color:#202124;\\\">Which of the following crops is a commercial crop?</span></p>\",",
+													"                        \"solutions\": [{",
+													"                            \"id\": \"f8e65cff-1451-4353-b281-3ceaf874b5b8\",",
+													"                            \"type\": \"html\",",
+													"                            \"value\": \"<p>Tea is the <span style=\\\"background-color:#ffffff;color:#202124;\\\">commercial crop</span></p><figure class=\\\"image image-style-align-left\\\"><img src=\\\"/assets/public/content/assets/do_2137498365362995201237/tea.jpeg\\\" alt=\\\"tea\\\" data-asset-variable=\\\"do_2137498365362995201237\\\"></figure>\"",
+													"                        }]",
+													"                    },",
+													"                    \"interactions\": {",
+													"                        \"response1\": {",
+													"                            \"type\": \"choice\",",
+													"                            \"options\": [{",
+													"                                    \"label\": \"<p>Wheat</p>\",",
+													"                                    \"value\": 0",
+													"                                },",
+													"                                {",
+													"                                    \"label\": \"<p>Barley</p>\",",
+													"                                    \"value\": 1",
+													"                                },",
+													"                                {",
+													"                                    \"label\": \"<p>Maize</p>\",",
+													"                                    \"value\": 2",
+													"                                },",
+													"                                {",
+													"                                    \"label\": \"<p>Tea</p>\",",
+													"                                    \"value\": 3",
+													"                                }",
+													"                            ]",
+													"                        },",
+													"                        \"validation\": {",
+													"                            \"required\": \"Yes\"",
+													"                        }",
+													"                    }",
+													"                }",
+													"            }",
+													"        })",
+													"    }",
+													"}, (error, response) => {",
+													"    if (error) {",
+													"        console.log(\"error occured while creating question for list api test. | error: \" + error)",
+													"    }",
+													"    if (response) {",
+													"        pm.collectionVariables.set(\"question_list_identifier_2\", response.json().result.identifier)",
+													"    }",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"pm.test(\"Response time is less than 1000ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+													"});",
+													"pm.test(\"Response Validation\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.id).to.eql(\"api.questions.list\");",
+													"    pm.expect(jsonData.params.status).to.eql(\"successful\");",
+													"    pm.expect(jsonData.params.errmsg).to.eql(null);",
+													"    pm.expect(jsonData.result.count).to.eql(2)",
+													"    pm.expect(jsonData.result.questions).not.null",
+													"    pm.expect(jsonData.result.questions).not.undefined",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Channel-Id",
+												"value": "{{channel_id}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{api_key}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"request\": {\n    \"search\": {\n      \"identifier\": [\n        \"{{question_list_identifier_1}}\",\n        \"{{question_list_identifier_2}}\"\n      ]\n    }\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/question/{{api_version}}/list",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"question",
+												"{{api_version}}",
+												"list"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						},
 						{
 							"name": "question_list_400",
-							"item": []
-						},
-						{
-							"name": "question_list_404",
-							"item": []
+							"item": [
+								{
+									"name": "list_questions_with_valid_identifier_and_invalid_identifier",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.sendRequest({",
+													"    url: pm.environment.get(\"host\") + '/question/' + pm.environment.get(\"api_version\") + '/create',",
+													"    method: 'POST',",
+													"    header: {",
+													"        'Content-Type': \"application/json\",",
+													"        'accept': \"application/json\",",
+													"        'Authorization': 'Bearer ' + pm.environment.get(\"api_key\")",
+													"    },",
+													"    body: {",
+													"        mode: 'raw',",
+													"        raw: JSON.stringify({",
+													"            \"request\": {",
+													"                \"question\": {",
+													"                    \"name\": \"FT_Q_PRE_LIST_MCQ_3\",",
+													"                    \"code\": \"ft.list.pre.question.3\",",
+													"                    \"mimeType\": \"application/vnd.sunbird.question\",",
+													"                    \"primaryCategory\": \"Multiple Choice Question\",",
+													"                    \"responseDeclaration\": {",
+													"                        \"response1\": {",
+													"                            \"maxScore\": 1,",
+													"                            \"cardinality\": \"single\",",
+													"                            \"type\": \"integer\",",
+													"                            \"correctResponse\": {",
+													"                                \"value\": \"3\",",
+													"                                \"outcomes\": {",
+													"                                    \"SCORE\": 1",
+													"                                }",
+													"                            },",
+													"                            \"mapping\": [{",
+													"                                \"response\": 3,",
+													"                                \"outcomes\": {",
+													"                                    \"score\": 1",
+													"                                }",
+													"                            }]",
+													"                        }",
+													"                    },",
+													"                    \"media\": [{",
+													"                        \"id\": \"do_2137498365362995201237\",",
+													"                        \"type\": \"image\",",
+													"                        \"src\": \"/assets/public/content/assets/do_2137498365362995201237/tea.jpeg\",",
+													"                        \"baseUrl\": \"https://dev.inquiry.sunbird.org\"",
+													"                    }],",
+													"                    \"body\": \"<div class='question-body' tabindex='-1'><div class='mcq-title' tabindex='0'><p><span style=\\\"background-color:#ffffff;color:#202124;\\\">Which of the following crops is a commercial crop?</span></p></div><div data-choice-interaction='response1' class='mcq-vertical'></div></div>\",",
+													"                    \"editorState\": {",
+													"                        \"options\": [{",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Wheat</p>\",",
+													"                                    \"value\": 0",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Barley</p>\",",
+													"                                    \"value\": 1",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": false,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Maize</p>\",",
+													"                                    \"value\": 2",
+													"                                }",
+													"                            },",
+													"                            {",
+													"                                \"answer\": true,",
+													"                                \"value\": {",
+													"                                    \"body\": \"<p>Tea</p>\",",
+													"                                    \"value\": 3",
+													"                                }",
+													"                            }",
+													"                        ],",
+													"                        \"question\": \"<p><span style=\\\"background-color:#ffffff;color:#202124;\\\">Which of the following crops is a commercial crop?</span></p>\",",
+													"                        \"solutions\": [{",
+													"                            \"id\": \"f8e65cff-1451-4353-b281-3ceaf874b5b8\",",
+													"                            \"type\": \"html\",",
+													"                            \"value\": \"<p>Tea is the <span style=\\\"background-color:#ffffff;color:#202124;\\\">commercial crop</span></p><figure class=\\\"image image-style-align-left\\\"><img src=\\\"/assets/public/content/assets/do_2137498365362995201237/tea.jpeg\\\" alt=\\\"tea\\\" data-asset-variable=\\\"do_2137498365362995201237\\\"></figure>\"",
+													"                        }]",
+													"                    },",
+													"                    \"interactions\": {",
+													"                        \"response1\": {",
+													"                            \"type\": \"choice\",",
+													"                            \"options\": [{",
+													"                                    \"label\": \"<p>Wheat</p>\",",
+													"                                    \"value\": 0",
+													"                                },",
+													"                                {",
+													"                                    \"label\": \"<p>Barley</p>\",",
+													"                                    \"value\": 1",
+													"                                },",
+													"                                {",
+													"                                    \"label\": \"<p>Maize</p>\",",
+													"                                    \"value\": 2",
+													"                                },",
+													"                                {",
+													"                                    \"label\": \"<p>Tea</p>\",",
+													"                                    \"value\": 3",
+													"                                }",
+													"                            ]",
+													"                        },",
+													"                        \"validation\": {",
+													"                            \"required\": \"Yes\"",
+													"                        }",
+													"                    }",
+													"                }",
+													"            }",
+													"        })",
+													"    }",
+													"}, (error, response) => {",
+													"    if (error) {",
+													"        console.log(\"error occured while creating question for list api test. | error: \" + error)",
+													"    }",
+													"    if (response) {",
+													"        pm.collectionVariables.set(\"question_list_identifier_1\", response.json().result.identifier)",
+													"    }",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Response time is less than 1000ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+													"});",
+													"pm.test(\"Response Validation\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.id).to.eql(\"api.questions.list\");",
+													"    pm.expect(jsonData.params.status).to.eql(\"failed\");",
+													"    pm.expect(jsonData.params.err).to.eql(\"ERR_BAD_REQUEST\");",
+													"    pm.expect(jsonData.params.errmsg).to.eql(\"Request contains invalid identifiers : [do_list_abc_123].\");",
+													"    pm.expect(jsonData.result.messages).to.eql(null)",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Channel-Id",
+												"value": "{{channel_id}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{api_key}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"request\": {\n    \"search\": {\n      \"identifier\": [\n        \"{{question_list_identifier_1}}\",\n        \"do_list_abc_123\"\n      ]\n    }\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/question/{{api_version}}/list",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"question",
+												"{{api_version}}",
+												"list"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "list_questions_with_invalid_identifiers",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Response time is less than 1000ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+													"});",
+													"pm.test(\"Response Validation\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.id).to.eql(\"api.questions.list\");",
+													"    pm.expect(jsonData.params.status).to.eql(\"failed\");",
+													"    pm.expect(jsonData.params.err).to.eql(\"ERR_BAD_REQUEST\");",
+													"    pm.expect(jsonData.params.errmsg).to.eql(\"Request contains invalid identifiers : [do_list_abc_234, do_list_abc_123].\");",
+													"    pm.expect(jsonData.result.messages).to.eql(null)",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Channel-Id",
+												"value": "{{channel_id}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{api_key}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"request\": {\n    \"search\": {\n      \"identifier\": [\n        \"do_list_abc_234\",\n        \"do_list_abc_123\"\n      ]\n    }\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/question/{{api_version}}/list",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"question",
+												"{{api_version}}",
+												"list"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
@@ -2491,15 +3975,267 @@
 					"item": [
 						{
 							"name": "question_import_200",
-							"item": []
+							"item": [
+								{
+									"name": "import_question_without_source",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"pm.test(\"Response time is less than 1000ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+													"});",
+													"pm.test(\"Response Validation\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.id).to.eql(\"api.question.import\");",
+													"    pm.expect(jsonData.params.status).to.eql(\"successful\");",
+													"    pm.expect(jsonData.params.errmsg).to.eql(null);",
+													"    pm.expect(jsonData.result.processId).not.eq(null)",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Channel-Id",
+												"value": "{{channel_id}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{api_key}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"request\": {\n    \"question\": [\n      {\n        \"metadata\": {\n          \"name\": \"FT_Q_IMPORT_WITHOUT_SOURCE_1\",\n          \"code\": \"{{$randomUUID}}\",\n          \"mimeType\": \"application/vnd.sunbird.question\",\n          \"primaryCategory\": \"Multiple Choice Question\",\n          \"channel\": \"{{channel_id}}\",\n          //\"framework\": \"{{framework_id}}\"\n          \"framework\": \"inquiry_k-12\"\n        }\n      }\n    ]\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/question/{{api_version}}/import",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"question",
+												"{{api_version}}",
+												"import"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "import_question_with_source",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"pm.test(\"Response time is less than 1000ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+													"});",
+													"pm.test(\"Response Validation\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.id).to.eql(\"api.question.import\");",
+													"    pm.expect(jsonData.params.status).to.eql(\"successful\");",
+													"    pm.expect(jsonData.params.errmsg).to.eql(null);",
+													"    pm.expect(jsonData.result.processId).not.eq(null)",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Channel-Id",
+												"value": "{{channel_id}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{api_key}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"request\": {\n    \"question\": [\n      {\n        \"source\": \"https://dock.sunbirded.org/api/question/v1/read/do_1132390225275781121622\",\n        \"metadata\": {\n          \"name\": \"FT_Q_IMPORT_WITHOUT_SOURCE_1\",\n          \"code\": \"{{$randomUUID}}\",\n          \"mimeType\": \"application/vnd.sunbird.question\",\n          \"primaryCategory\": \"Multiple Choice Question\",\n          \"channel\": \"{{channel_id}}\",\n          //\"framework\": \"{{framework_id}}\"\n          \"framework\": \"inquiry_k-12\"\n        }\n      }\n    ]\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/question/{{api_version}}/import",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"question",
+												"{{api_version}}",
+												"import"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						},
 						{
 							"name": "question_import_400",
-							"item": []
-						},
-						{
-							"name": "question_import_404",
-							"item": []
+							"item": [
+								{
+									"name": "without_source_required property is missing",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Response time is less than 1000ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+													"});",
+													"pm.test(\"Response Validation\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.id).to.eql(\"api.question.import\");",
+													"    pm.expect(jsonData.params.status).to.eql(\"failed\");",
+													"    pm.expect(jsonData.params.err).to.eql(\"ERR_REQUIRED_PROPS_VALIDATION\");",
+													"    pm.expect(jsonData.params.errmsg).contains(\"Validation Failed! Mandatory Properties Are [\\\"name\\\",\\\"code\\\",\\\"mimeType\\\",\\\"framework\\\",\\\"channel\\\"]\");",
+													"    pm.expect(jsonData.result.messages).to.be.null",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Channel-Id",
+												"value": "{{channel_id}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{api_key}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"request\": {\n    \"question\": [\n      {\n        \"metadata\": {\n          \"code\": \"{{$randomUUID}}\",\n          \"mimeType\": \"application/vnd.sunbird.question\",\n          \"primaryCategory\": \"Multiple Choice Question\",\n          \"channel\": \"{{channel_id}}\"\n        }\n      }\n    ]\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/question/{{api_version}}/import",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"question",
+												"{{api_version}}",
+												"import"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "import_question_with_invalid_source",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Response time is less than 1000ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+													"});",
+													"pm.test(\"Response Validation\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.id).to.eql(\"api.question.import\");",
+													"    pm.expect(jsonData.params.status).to.eql(\"failed\");",
+													"    pm.expect(jsonData.params.err).to.eql(\"ERR_READ_SOURCE\");",
+													"    pm.expect(jsonData.params.errmsg).to.eql(\"Received Invalid Response While Reading Data From Source. Response Code is : RESOURCE_NOT_FOUND\");",
+													"    pm.expect(jsonData.result.messages).to.be.null",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Channel-Id",
+												"value": "{{channel_id}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{api_key}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"request\": {\n    \"question\": [\n      {\n        \"source\": \"https://dock.sunbirded.org/api/question/v1/read/inquiry_ft_question_1\",\n        \"metadata\": {\n          \"name\": \"FT_Q_IMPORT_WITHOUT_SOURCE_1\",\n          \"code\": \"{{$randomUUID}}\",\n          \"mimeType\": \"application/vnd.sunbird.question\",\n          \"primaryCategory\": \"Multiple Choice Question\",\n          \"channel\": \"{{channel_id}}\",\n          //\"framework\": \"{{framework_id}}\"\n          \"framework\": \"inquiry_k-12\"\n        }\n      }\n    ]\n  }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/question/{{api_version}}/import",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"question",
+												"{{api_version}}",
+												"import"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
@@ -2751,7 +4487,7 @@
 													"        raw: JSON.stringify({",
 													"            \"request\": {",
 													"                \"question\": {",
-													"                    \"name\": \"FT_Q_PRE_UPDATE_MCQ_1\",",
+													"                    \"name\": \"FT_Q_PRE_REJECT_MCQ_1\",",
 													"                    \"code\": \"ft.update.pre.question.1\",",
 													"                    \"mimeType\": \"application/vnd.sunbird.question\",",
 													"                    \"primaryCategory\": \"Multiple Choice Question\",",
@@ -3006,7 +4742,366 @@
 		},
 		{
 			"name": "questionset",
-			"item": []
+			"item": [
+				{
+					"name": "questionset_create",
+					"item": [
+						{
+							"name": "questionset_create_200",
+							"item": [
+								{
+									"name": "create_questionset",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"pm.test(\"Response time is less than 1000ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+													"});",
+													"pm.test(\"Response Validation\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.id).to.eql(\"api.questionset.create\");",
+													"    pm.expect(jsonData.params.status).to.eql(\"successful\");",
+													"    pm.expect(jsonData.params.errmsg).to.eql(null);",
+													"    pm.expect(jsonData.result.identifier).not.eq(null)",
+													"    pm.expect(jsonData.result.versionKey).not.eq(null)",
+													"",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Channel-Id",
+												"value": "{{channel_id}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{api_key}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"request\": {\n        \"questionset\": {\n            \"name\": \"QuestionSet-FT-1\",\n            \"mimeType\": \"application/vnd.sunbird.questionset\",\n            \"primaryCategory\": \"Practice Question Set\",\n            \"createdBy\": \"sunbird-user-1\",\n            \"code\": \"sunbird.qs.1\"\n        }\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/questionset/{{api_version}}/create",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"questionset",
+												"{{api_version}}",
+												"create"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "questionset_create_400",
+							"item": [
+								{
+									"name": "name is missing",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Response time is less than 1000ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+													"});",
+													"pm.test(\"Response Validation\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.id).to.eql(\"api.questionset.create\");",
+													"    pm.expect(jsonData.params.status).to.eql(\"failed\");",
+													"    pm.expect(jsonData.params.err).to.eql(\"CLIENT_ERROR\");",
+													"    pm.expect(jsonData.params.errmsg).to.eql(\"Validation Errors\");",
+													"    pm.expect(jsonData.result.messages).contains(\"Required Metadata name not set\")",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Channel-Id",
+												"value": "{{channel_id}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{api_key}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"request\": {\n        \"questionset\": {\n            \"mimeType\": \"application/vnd.sunbird.questionset\",\n            \"primaryCategory\": \"Practice Question Set\",\n            \"createdBy\": \"sunbird-user-1\",\n            \"code\": \"sunbird.qs.1\"\n        }\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/questionset/{{api_version}}/create",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"questionset",
+												"{{api_version}}",
+												"create"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "code is missing",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Response time is less than 1000ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+													"});",
+													"pm.test(\"Response Validation\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.id).to.eql(\"api.questionset.create\");",
+													"    pm.expect(jsonData.params.status).to.eql(\"failed\");",
+													"    pm.expect(jsonData.params.err).to.eql(\"CLIENT_ERROR\");",
+													"    pm.expect(jsonData.params.errmsg).to.eql(\"Validation Errors\");",
+													"    pm.expect(jsonData.result.messages).contains(\"Required Metadata code not set\")",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Channel-Id",
+												"value": "{{channel_id}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{api_key}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"request\": {\n        \"questionset\": {\n            \"name\": \"QuestionSet-FT-1\",\n            \"mimeType\": \"application/vnd.sunbird.questionset\",\n            \"primaryCategory\": \"Practice Question Set\",\n            \"createdBy\": \"sunbird-user-1\"\n        }\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/questionset/{{api_version}}/create",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"questionset",
+												"{{api_version}}",
+												"create"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "mimeType is missing",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Response time is less than 1000ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+													"});",
+													"pm.test(\"Response Validation\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.id).to.eql(\"api.questionset.create\");",
+													"    pm.expect(jsonData.params.status).to.eql(\"failed\");",
+													"    pm.expect(jsonData.params.err).to.eql(\"CLIENT_ERROR\");",
+													"    pm.expect(jsonData.params.errmsg).to.eql(\"Validation Errors\");",
+													"    pm.expect(jsonData.result.messages).contains(\"Required Metadata mimeType not set\")",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Channel-Id",
+												"value": "{{channel_id}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{api_key}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"request\": {\n        \"questionset\": {\n            \"name\": \"QuestionSet-FT-1\",\n            \"primaryCategory\": \"Practice Question Set\",\n            \"createdBy\": \"sunbird-user-1\",\n            \"code\": \"sunbird.qs.1\"\n        }\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/questionset/{{api_version}}/create",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"questionset",
+												"{{api_version}}",
+												"create"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "questionset_create_404",
+							"item": [
+								{
+									"name": "wrong primaryCategory given",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"    pm.response.to.have.status(404);",
+													"});",
+													"pm.test(\"Response time is less than 1000ms\", function () {",
+													"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+													"});",
+													"pm.test(\"Response Validation\", function () {",
+													"    var jsonData = pm.response.json();",
+													"    pm.expect(jsonData.id).to.eql(\"api.questionset.create\");",
+													"    pm.expect(jsonData.params.status).to.eql(\"failed\");",
+													"    pm.expect(jsonData.params.err).to.eql(\"404\");",
+													"    pm.expect(jsonData.params.errmsg).to.eql(\"Entry is not found in cassandra for content with identifier: obj-cat:test-questionset-category_questionset_all {}\");",
+													"    pm.expect(jsonData.result.messages).to.be.null",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Channel-Id",
+												"value": "{{channel_id}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{api_key}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"request\": {\n        \"questionset\": {\n            \"name\": \"QuestionSet-FT-1\",\n            \"mimeType\": \"application/vnd.sunbird.questionset\",\n            \"primaryCategory\": \"Test Questionset Category\",\n            \"createdBy\": \"sunbird-user-1\",\n            \"code\": \"sunbird.qs.1\"\n        }\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/questionset/{{api_version}}/create",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"questionset",
+												"{{api_version}}",
+												"create"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "questionset_read",
+					"item": [
+						{
+							"name": "questionset_read_200",
+							"item": []
+						},
+						{
+							"name": "questionset_read_400",
+							"item": []
+						},
+						{
+							"name": "questionset_read_404",
+							"item": []
+						}
+					]
+				}
+			]
 		}
 	],
 	"variable": [
@@ -3028,6 +5123,18 @@
 		},
 		{
 			"key": "question_identifier_for_reject",
+			"value": ""
+		},
+		{
+			"key": "question_list_identifier_2",
+			"value": ""
+		},
+		{
+			"key": "question_list_identifier_1",
+			"value": ""
+		},
+		{
+			"key": "question_identifier_for_retire",
 			"value": ""
 		}
 	]
