@@ -1013,7 +1013,7 @@
 													"    pm.expect(questionData.versionKey).not.eq(null)",
 													"    pm.expect(questionData.objectType).to.eql(\"Question\")",
 													"    pm.expect(questionData.status).to.eql(\"Draft\")",
-													"    pm.expect(questionData.name).to.eql(\"FT_Q_PRE_READ_MCQ_1\")",
+													"    pm.expect(questionData.name).to.eql(\"FT_Q_PRE_READ_MCQ_2\")",
 													"});",
 													""
 												],
@@ -1515,6 +1515,7 @@
 													"                    \"code\": \"ft.update.pre.question.2\",",
 													"                    \"mimeType\": \"application/vnd.sunbird.question\",",
 													"                    \"primaryCategory\": \"Multiple Choice Question\",",
+													"                    \"interactionTypes\": [\"choice\"],",
 													"                    \"responseDeclaration\": {",
 													"                        \"response1\": {",
 													"                            \"maxScore\": 1,",
@@ -2023,6 +2024,7 @@
 													"                    \"code\": \"ft.review.pre.question.1\",",
 													"                    \"mimeType\": \"application/vnd.sunbird.question\",",
 													"                    \"primaryCategory\": \"Multiple Choice Question\",",
+													"                    \"interactionTypes\": [\"choice\"],",
 													"                    \"responseDeclaration\": {",
 													"                        \"response1\": {",
 													"                            \"maxScore\": 1,",
@@ -4018,7 +4020,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"request\": {\n    \"question\": [\n      {\n        \"metadata\": {\n          \"name\": \"FT_Q_IMPORT_WITHOUT_SOURCE_1\",\n          \"code\": \"{{$randomUUID}}\",\n          \"mimeType\": \"application/vnd.sunbird.question\",\n          \"primaryCategory\": \"Multiple Choice Question\",\n          \"channel\": \"{{channel_id}}\",\n          //\"framework\": \"{{framework_id}}\"\n          \"framework\": \"inquiry_k-12\"\n        }\n      }\n    ]\n  }\n}",
+											"raw": "{\n  \"request\": {\n    \"question\": [\n      {\n        \"metadata\": {\n          \"name\": \"FT_Q_IMPORT_WITHOUT_SOURCE_1\",\n          \"code\": \"{{$randomUUID}}\",\n          \"mimeType\": \"application/vnd.sunbird.question\",\n          \"primaryCategory\": \"Multiple Choice Question\",\n          \"channel\": \"{{channel_id}}\",\n          \"framework\": \"inquiry_k-12\"\n        }\n      }\n    ]\n  }\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -4214,7 +4216,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"request\": {\n    \"question\": [\n      {\n        \"source\": \"https://dock.sunbirded.org/api/question/v1/read/inquiry_ft_question_1\",\n        \"metadata\": {\n          \"name\": \"FT_Q_IMPORT_WITHOUT_SOURCE_1\",\n          \"code\": \"{{$randomUUID}}\",\n          \"mimeType\": \"application/vnd.sunbird.question\",\n          \"primaryCategory\": \"Multiple Choice Question\",\n          \"channel\": \"{{channel_id}}\",\n          //\"framework\": \"{{framework_id}}\"\n          \"framework\": \"inquiry_k-12\"\n        }\n      }\n    ]\n  }\n}",
+											"raw": "{\n  \"request\": {\n    \"question\": [\n      {\n        \"source\": \"https://dock.sunbirded.org/api/question/v1/read/inquiry_ft_question_1\",\n        \"metadata\": {\n          \"name\": \"FT_Q_IMPORT_WITHOUT_SOURCE_1\",\n          \"code\": \"{{$randomUUID}}\",\n          \"mimeType\": \"application/vnd.sunbird.question\",\n          \"primaryCategory\": \"Multiple Choice Question\",\n          \"channel\": \"{{channel_id}}\",\n          \"framework\": \"inquiry_k-12\"\n        }\n      }\n    ]\n  }\n}",
 											"options": {
 												"raw": {
 													"language": "json"
