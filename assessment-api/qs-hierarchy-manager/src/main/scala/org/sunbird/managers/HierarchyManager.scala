@@ -201,6 +201,7 @@ object HierarchyManager {
                 val children = hierarchy.getOrDefault("children", new util.ArrayList[java.util.Map[String, AnyRef]]).asInstanceOf[util.ArrayList[java.util.Map[String, AnyRef]]]
                 val leafNodeIds = new util.ArrayList[String]()
                 fetchAllLeafNodes(children, leafNodeIds)
+                println("leafNodeIds ::: "+leafNodeIds)
                 getLatestLeafNodes(leafNodeIds).map(leafNodesMap => {
                     updateLatestLeafNodes(children, leafNodesMap)
                     metadata.put("children", children)
@@ -637,8 +638,8 @@ object HierarchyManager {
 
     def updateLatestLeafNodes(children: util.List[util.Map[String, AnyRef]], leafNodeMap: util.Map[String, AnyRef]): List[Any] = {
         children.toList.map(content => {
-            if(StringUtils.equalsIgnoreCase("Default", content.getOrDefault("visibility", "").asInstanceOf[String])) {
-                val metadata: util.Map[String, AnyRef] = leafNodeMap.getOrDefault(content.get("identifier").asInstanceOf[String], new java.util.HashMap[String, AnyRef]()).asInstanceOf[util.Map[String, AnyRef]]
+            if(StringUtils.equalsIgnoreCase("application/vnd.sunbird.question", content.getOrDefault("mimeType", "").asInstanceOf[String])) {
+                val metadata: util.Map[String, AnyRef] = leafNodeMap.getOrDefault(content.get("identifier").asInstanceOf[String].replace(".img", ""), new java.util.HashMap[String, AnyRef]()).asInstanceOf[util.Map[String, AnyRef]]
                 if(HierarchyConstants.RETIRED_STATUS.equalsIgnoreCase(metadata.getOrDefault("status", HierarchyConstants.RETIRED_STATUS).asInstanceOf[String])){
                     children.remove(content)
                 } else {
@@ -652,16 +653,20 @@ object HierarchyManager {
 
     def fetchAllLeafNodes(children: util.List[util.Map[String, AnyRef]], leafNodeIds: util.List[String]): List[Any] = {
         children.toList.map(content => {
+            println("content ::: "+content)
             if(StringUtils.equalsIgnoreCase("application/vnd.sunbird.question", content.getOrDefault("mimeType", "").asInstanceOf[String])) {
+                println("if ....")
                 leafNodeIds.add(content.get("identifier").asInstanceOf[String].replace(".img",""))
                 leafNodeIds
             } else {
+                println("else ... ")
                 fetchAllLeafNodes(content.getOrDefault("children", new util.ArrayList[Map[String, AnyRef]]).asInstanceOf[util.List[util.Map[String, AnyRef]]], leafNodeIds)
             }
         })
     }
 
     def getLatestLeafNodes(leafNodeIds : util.List[String])(implicit oec: OntologyEngineContext, ec: ExecutionContext) = {
+        println("getLatestLeafNodes ::: leafNodeIds ::: " + leafNodeIds)
         if(CollectionUtils.isNotEmpty(leafNodeIds)) {
             val request = new Request()
             request.setContext(new util.HashMap[String, AnyRef]() {
