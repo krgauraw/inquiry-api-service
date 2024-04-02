@@ -2,15 +2,14 @@ package filters
 
 import akka.util.ByteString
 import org.sunbird.telemetry.logger.TelemetryManager
-
-import javax.inject.Inject
 import org.sunbird.telemetry.util.TelemetryAccessEventUtil
 import play.api.Logging
 import play.api.libs.streams.Accumulator
 import play.api.mvc._
 
-import scala.concurrent.ExecutionContext
+import javax.inject.Inject
 import scala.collection.JavaConverters._
+import scala.concurrent.ExecutionContext
 
 class AccessLogFilter @Inject() (implicit ec: ExecutionContext) extends EssentialFilter with Logging {
 
@@ -22,7 +21,12 @@ class AccessLogFilter @Inject() (implicit ec: ExecutionContext) extends Essentia
         val startTime = System.currentTimeMillis
         val reqPath = requestHeader.uri
         if(!reqPath.contains("/health")){
-          val reqId = requestHeader.headers.get("X-Request-Id").getOrElse(java.util.UUID.randomUUID()).asInstanceOf[String]
+          val headers = requestHeader.headers.headers.groupBy(_._1).mapValues(_.map(_._2))
+          val defReqId = java.util.UUID.randomUUID().toString
+          println("default Req Id ::: req :::" + defReqId)
+          val reqid_temp = requestHeader.headers.get("X-Request-Id").getOrElse("Header Not Found!")
+          println("reqid_temp ::: "+reqid_temp)
+          val reqId = headers.get("X-Request-Id").getOrElse(defReqId).asInstanceOf[String]
           val entryLogStr = s"""{"eid":"LOG","edata":{"type":"system","level":"TRACE","requestid":${reqId},"message":"ENTRY LOG: ${reqPath} : Request Received.","params":[{"key":"value"}]}}"""
           TelemetryManager.info(entryLogStr)
         }
@@ -44,7 +48,9 @@ class AccessLogFilter @Inject() (implicit ec: ExecutionContext) extends Essentia
                 "Status" -> result.header.status, "Protocol" -> "http",
                 "path" -> path,
                 "Method" -> requestHeader.method.toString)
-            val reqId = requestHeader.headers.get("X-Request-Id").getOrElse(java.util.UUID.randomUUID()).asInstanceOf[String]
+            val defReqId = java.util.UUID.randomUUID().toString
+            println("default Req Id ::: res :::"+defReqId)
+            val reqId = headers.get("X-Request-Id").getOrElse(defReqId).asInstanceOf[String]
             val exitLog = s"""{"eid":"LOG","edata":{"type":"system","level":"TRACE","requestid":${reqId},"message":"EXIT LOG: ${path} | Response Provided. Response Code: ${result.header.status}","params":[{"key":"value"}]}}"""
             TelemetryManager.info(exitLog)
             TelemetryAccessEventUtil.writeTelemetryEventLog((otherDetails ++ appHeaders).asInstanceOf[Map[String, AnyRef]].asJava)

@@ -6,11 +6,11 @@ import org.apache.commons.lang3.StringUtils
 import org.sunbird.common.DateUtils
 import org.sunbird.common.dto.{Response, ResponseHandler}
 import org.sunbird.common.exception.ResponseCode
-import play.api.mvc.{AbstractController, AnyContent, ControllerComponents, Request, Result}
+import play.api.mvc._
 import utils.JavaJsonUtils
 
 import java.util.UUID
-import collection.JavaConverters._
+import scala.collection.JavaConverters._
 import scala.concurrent.{ExecutionContext, Future}
 
 abstract class BaseController(protected val cc: ControllerComponents)(implicit exec: ExecutionContext) extends AbstractController(cc) {
@@ -24,7 +24,9 @@ abstract class BaseController(protected val cc: ControllerComponents)(implicit e
     val customHeaders = Map("x-channel-id" -> "channel", "X-Consumer-ID" -> "consumerId", "X-App-Id" -> "appId", "X-Request-Id" -> "requestId")
     customHeaders.map(ch => {
       val value = request.headers.get(ch._1)
+      println(s"key :::: ${ch._1} ")
       if (value.isDefined && !value.isEmpty) {
+        println("value ::: "+value.get)
         collection.mutable.HashMap[String, Object](ch._2 -> value.get).asJava
       } else {
         collection.mutable.HashMap[String, Object]().asJava

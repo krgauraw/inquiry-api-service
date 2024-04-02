@@ -69,6 +69,7 @@ class QuestionController @Inject()(@Named(ActorNames.QUESTION_V5_ACTOR) question
 
   def publish(identifier: String) = Action.async { implicit request =>
     val headers = commonHeaders()
+    println("headers ::: "+headers)
     val body = requestBody()
     val question = body.getOrDefault("question", new java.util.HashMap()).asInstanceOf[java.util.Map[String, Object]];
     question.putAll(headers)
