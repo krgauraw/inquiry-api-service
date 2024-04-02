@@ -2,6 +2,7 @@ package controllers.v5
 
 import akka.actor.ActorRef
 import akka.pattern.Patterns
+import org.apache.commons.lang3.StringUtils
 import org.sunbird.common.DateUtils
 import org.sunbird.common.dto.{Response, ResponseHandler}
 import org.sunbird.common.exception.ResponseCode
@@ -20,7 +21,7 @@ abstract class BaseController(protected val cc: ControllerComponents)(implicit e
   }
 
   def commonHeaders()(implicit request: Request[AnyContent]): java.util.Map[String, Object] = {
-    val customHeaders = Map("x-channel-id" -> "channel", "X-Consumer-ID" -> "consumerId", "X-App-Id" -> "appId")
+    val customHeaders = Map("x-channel-id" -> "channel", "X-Consumer-ID" -> "consumerId", "X-App-Id" -> "appId", "X-Request-Id" -> "requestId")
     customHeaders.map(ch => {
       val value = request.headers.get(ch._1)
       if (value.isDefined && !value.isEmpty) {
@@ -67,6 +68,9 @@ abstract class BaseController(protected val cc: ControllerComponents)(implicit e
       put("objectType" , objectType)
       put("schemaName", schemaName)
     }};
+    val reqId = request.getContext().getOrDefault("requestId", "").asInstanceOf[String]
+    if(StringUtils.isBlank(reqId))
+      request.getContext().put("requestId", UUID.randomUUID())
     request.setObjectType(objectType);
     request.getContext().putAll(contextMap)
   }
