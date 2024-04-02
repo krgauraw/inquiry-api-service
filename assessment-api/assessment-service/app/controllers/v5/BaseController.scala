@@ -69,8 +69,10 @@ abstract class BaseController(protected val cc: ControllerComponents)(implicit e
       put("schemaName", schemaName)
     }};
     val reqId = request.getContext().getOrDefault("requestId", "").asInstanceOf[String]
+    println("context ::: "+request.getContext)
+    println("reqId ::: "+reqId)
     if(StringUtils.isBlank(reqId))
-      request.getContext().put("requestId", UUID.randomUUID())
+      request.getContext().put("requestId", UUID.randomUUID().toString)
     request.setObjectType(objectType);
     request.getContext().putAll(contextMap)
   }
